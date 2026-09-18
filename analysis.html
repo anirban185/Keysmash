@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keysmash: analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Keysmash⌨️</h1>
+        <p> your stats, all of them</p>
+    </header>
+
+    <main>
+
+        <div id="filter-bar">
+            <label for="mode-filter">mode:</label>
+            <select id="mode-filter">
+                <option value="all">all</option>
+                <option value="short">short</option>
+                <option value="medium">medium</option>
+                <option value="long">long</option>
+            </select>
+
+            <label for="view-toggle">view:</label>
+            <select id="view-toggle">
+                <option value="best">best</option>
+                <option value="avg">average</option>
+            </select>
+        </div>
+
+        <div id="stats">
+            <div class="stat-box">
+                <span id="wpm-stat" class="stat-value">0</span>
+                <span class="stat-label">wpm</span>
+            </div>
+            <div class="stat-box">
+                <span id="accuracy-stat" class="stat-value">100%</span>
+                <span class="stat-label">accuracy</span>
+            </div>
+            <div class="stat-box">
+                <span id="tests-taken" class="stat-value">0</span>
+                <span class="stat-label">tests taken</span>
+            </div>
+            <div class="stat-box">
+                <span id="total-time" class="stat-value">0m</span>
+                <span class="stat-label">time practiced</span>
+            </div>
+            <div class="stat-box">
+                <span id="missed-key" class="stat-value"> </span>
+                <span class="stat-label">most missed key</span>
+            </div>
+        </div>
+
+        <h2>wpm over time</h2>
+        <div id="chart"></div>
+
+        <h2>test history</h2>
+        <table id="history-table">
+            <thead>
+                <tr>
+                    <th>date</th>
+                    <th>mode</th>
+                    <th>wpm</th>
+                    <th>accuracy</th>
+                </tr>
+            </thead>
+            <tbody id="history-body">
+                <tr>
+                    <td colspan="4">no test take yet, go type something</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div id="controls">
+            <button id="clear-history-btn">clear history</button>
+            <a href="index.html" id="back-link">back to test</a>
+        </div>
+
+    </main>
+
+    <script src="analysis.js"></script>
+</body>
+
+</html>
