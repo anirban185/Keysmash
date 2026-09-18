@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keysmash: typing test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Keysmash⌨️</h1>
+        <p id="tagline">how fast can your fingers go</p>
+    </header>
+    <main>
+
+        <div id="mode-picker">
+            <button class="mode-btn">short</button>
+            <button class="mode-btn">medium</button>
+            <button class="mode-btn">long</button>
+        </div>
+
+        <div id="text-display">
+            loading text....
+        </div>
+
+        <textarea id="text-input" placeholder="click here and start typing" autocomplete="off" autocorrect="off"
+            spellcheck="false"></textarea>
+
+        <div id="stats-bar">
+            <div class="stat-box">
+                <span id="wpm" class="stat-value">0</span>
+                <span class="stat-label">wpm</span>
+            </div>
+            <div class="stat-box">
+                <span id="accuracy" class="stat-value">100%</span>
+                <span class="stat-label">accuracy</span>
+            </div>
+            <div class="stat-box">
+                <span id="time-left" class="stat-value">20</span>
+                <span class="stat-label">s</span>
+            </div>
+            <div class="stat-box">
+                <span id="errors" class="stat-value">0</span>
+                <span class="stat-label">errors</span>
+            </div>
+        </div>
+
+        <div id="progress-bar"></div>
+
+        <div id="controls">
+            <button id="restart-btn">restart</button>
+            <a href="analysis.html" id="analysis-link">view full analysis</a>
+        </div>
+
+    </main>
+
+    <div id="result-card" class="hidden">
+        <h2>test done!</h2>
+        <p id="result-summary">you typed at <strong>0</strong> wpm with <strong>100%</strong> accuracy</p>
+        <button id="close-card-btn">nice</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
