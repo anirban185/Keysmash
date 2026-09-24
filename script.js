@@ -188,4 +188,15 @@ function finishTest() {
     resultCard.classList.remove("hidden");
 }
 
+const restartBtn = document.getElementById("restart-btn");
+const closeCardBtn = document.getElementById("close-card-btn");
+
+restartBtn.addEventListener("click", function () {
+    loadNewText(currentMode);
+});
+
+closeCardBtn.addEventListener("click", function () {
+    resultCard.classList.add("hidden");
+});
+
 loadNewText(currentMode);
