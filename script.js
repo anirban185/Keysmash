@@ -36,6 +36,8 @@ const modeTimes = {
     long: 60
 };
 
+const HISTORY_KEY = "keysmash-history";
+
 let currentMode = "short";
 let currentText = "";
 let letterSpans = [];
@@ -44,6 +46,7 @@ let errorCount = 0;
 let testStarted = false;
 let timeLeft = modeTimes[currentMode];
 let timerId = null;
+let missedKeys = {};
 
 function pickText(mode) {
     const bank = wordBank[mode];
@@ -74,6 +77,7 @@ function loadNewText(mode) {
     errorCount = 0;
     testStarted = false;
     timeLeft = modeTimes[mode];
+    missedKeys = {};
 
     clearInterval(timerId);
     timerId = null;
@@ -116,6 +120,12 @@ textInput.addEventListener("input", function () {
             } else {
                 span.classList.add("incorrecet");
                 errorCount++;
+
+                const missedChar = currentText[i].toLowerCase();
+                if (!missedKeys[missedChar]) {
+                    missedKeys[missedChar] = 0;
+                }
+                missedKeys[missedChar]++;
             }
         }
     }
@@ -177,12 +187,45 @@ function updateStatsDisplay(wpm, accuracy, time, errors) {
     errorsEl.innerText = errors;
 }
 
+function getWorstKey() {
+    let worstKey = "-";
+    let worstCount = 0;
+
+    for (const key in missedKeys) {
+        if (missedKeys[key] > worstCount) {
+            worstCount = missedKeys[key];
+            worstKey = key;
+        }
+    }
+
+    return worstKey;
+}
+
+function saveResult(wpm, accuracy, timeTaken) {
+    const existing = localStorage.getItem(HISTORY_KEY);
+    const history = existing ? JSON.parse(existing) : [];
+
+    history.push({
+        date: new Date().toLocaleDateString(),
+        mode: currentMode,
+        wpm: wpm,
+        accuracy: accuracy,
+        timeTaken: timeTaken,
+        worstKey: getWorstKey()
+    });
+
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+}
+
 function finishTest() {
     clearInterval(timerId);
     textInput.disabled = true;
 
     const finalWpm = calculateWPM(currentIndex, errorCount);
     const finalAccuracy = calculateAccuracy(currentIndex, errorCount);
+    const timeTaken = modeTimes[currentMode] - timeLeft;
+
+    saveResult(finalWpm, finalAccuracy, timeTaken);
 
     resultSummary.innerHTML = "you typed at <strong>" + finalWpm + "</strong> wpm with <strong>" + finalAccuracy + "%</strong> accuracy";
     resultCard.classList.remove("hidden");
