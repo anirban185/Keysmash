@@ -144,4 +144,14 @@ function renderPage() {
 modeFilter.addEventListener("change", renderPage);
 viewToggle.addEventListener("change", renderPage);
 
+const clearHistoryBtn = document.getElementById("clear-history-btn");
+
+clearHistoryBtn.addEventListener("click", function () {
+    const sure = confirm("delete all your test history? can't undo this");
+    if (sure) {
+        localStorage.removeItem(HISTORY_KEY);
+        renderPage();
+    }
+});
+
 renderPage();

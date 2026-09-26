@@ -152,6 +152,7 @@ main {
     width: 0%;
     background: #feb236;
     transition: width 0.2s;
+    width: var(--w, 0%);
 }
 
 #controls {
